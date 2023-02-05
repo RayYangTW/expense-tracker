@@ -1,5 +1,6 @@
 const express = require("express")
 const mongoose = require("mongoose")
+const { engine } = require("express-handlebars")
 
 if(process.env.NODE_ENV !== "production") {
   require("dotenv").config()
@@ -7,6 +8,9 @@ if(process.env.NODE_ENV !== "production") {
 
 const app = express()
 const PORT = process.env.PORT
+
+app.engine("hbs", engine({ defaultLayout: "main", extname: ".hbs"}))
+app.set("view engine", "hbs")
 
 mongoose.set('strictQuery', true)
 // 也可以這樣寫
@@ -26,7 +30,7 @@ db.once('open', () => {
 })
 
 app.get('/', (req, res) => {
-  res.send('hello')
+  res.render('index')
 })
 
 app.listen(PORT, () => {
