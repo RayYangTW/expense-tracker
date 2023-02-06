@@ -2,6 +2,7 @@ const express = require("express")
 const mongoose = require("mongoose")
 const { engine } = require("express-handlebars")
 const bodyParser = require("body-parser")
+const methodOverride = require("method-override")
 
 if(process.env.NODE_ENV !== "production") {
   require("dotenv").config()
@@ -17,6 +18,7 @@ app.engine("hbs", engine({ defaultLayout: "main", extname: ".hbs"}))
 app.set("view engine", "hbs")
 
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 // ========= mongoose =========
 
@@ -66,7 +68,7 @@ app.get('/records/:id/edit', (req, res) => {
     .catch(err => console.error(err))
 })
 
-app.post('/records/:id/edit', (req, res) => {
+app.put('/records/:id', (req, res) => {
   const id = req.params.id
   const { name } = req.body
   Record.findById(id)
@@ -74,6 +76,14 @@ app.post('/records/:id/edit', (req, res) => {
       record.name = name
       return record.save()
     })
+    .then(() => res.redirect('/'))
+    .catch(err => console.error(err))
+})
+
+app.delete('/records/:id', (req, res) =>{
+  const id = req.params.id
+  Record.findById(id)
+    .then(record => record.remove())
     .then(() => res.redirect('/'))
     .catch(err => console.error(err))
 })
