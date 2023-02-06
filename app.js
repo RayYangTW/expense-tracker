@@ -1,6 +1,7 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const { engine } = require("express-handlebars")
+const bodyParser = require("body-parser")
 
 if(process.env.NODE_ENV !== "production") {
   require("dotenv").config()
@@ -14,6 +15,8 @@ const PORT = process.env.PORT
 
 app.engine("hbs", engine({ defaultLayout: "main", extname: ".hbs"}))
 app.set("view engine", "hbs")
+
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // ========= mongoose =========
 
@@ -42,6 +45,17 @@ app.get('/', (req, res) => {
   .then(records => res.render('index', {records}))
   .catch(err => console.error(err))
   
+})
+
+app.get('/records/new', (req, res) => {
+  res.render("new")
+})
+
+app.post('/records', (req, res) => {
+  const { name } = req.body
+  Record.create({ name })
+    .then(() => res.redirect('/'))
+    .catch(err => console.error(err))
 })
 
 app.listen(PORT, () => {
