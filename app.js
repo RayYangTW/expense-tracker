@@ -6,11 +6,16 @@ if(process.env.NODE_ENV !== "production") {
   require("dotenv").config()
 }
 
+const Record = require("./models/record")
+const record = require("./models/record")
+
 const app = express()
 const PORT = process.env.PORT
 
 app.engine("hbs", engine({ defaultLayout: "main", extname: ".hbs"}))
 app.set("view engine", "hbs")
+
+// ========= mongoose =========
 
 mongoose.set('strictQuery', true)
 // 也可以這樣寫
@@ -29,8 +34,14 @@ db.once('open', () => {
   console.log('monogodb connected!')
 })
 
+// ========= router =========
+
 app.get('/', (req, res) => {
-  res.render('index')
+  Record.find()
+  .lean()
+  .then(records => res.render('index', {records}))
+  .catch(err => console.error(err))
+  
 })
 
 app.listen(PORT, () => {
