@@ -58,6 +58,26 @@ app.post('/records', (req, res) => {
     .catch(err => console.error(err))
 })
 
+app.get('/records/:id/edit', (req, res) => {
+  const id = req.params.id
+  Record.findById(id)
+    .lean()
+    .then(record => res.render('edit', {record}))
+    .catch(err => console.error(err))
+})
+
+app.post('/records/:id/edit', (req, res) => {
+  const id = req.params.id
+  const { name } = req.body
+  Record.findById(id)
+    .then(record => {
+      record.name = name
+      return record.save()
+    })
+    .then(() => res.redirect('/'))
+    .catch(err => console.error(err))
+})
+
 app.listen(PORT, () => {
   console.log(`App is running on http://localhost:${PORT}`)
 })
