@@ -1,16 +1,52 @@
-<h1>This is INDEX!</h1>
 
-<ul>
-  {{#each records}}
-  <li>
-    {{this.name}}
-    <a href="./records/{{ this._id }}/edit">修改</a>
-    <form action="./records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-      <button class="btn btn-danger" type="submit" onclick="confirmBox()">刪除</button>
-    </form>
-  </li>
-  {{/each}}
-</ul>
+<div class="container d-flex align-items-center justify-content-center mb-2 mt-2 w-50">
+  <div class="col-sm-10 mb-3">
+    <select name="category" id="category" class="form-select">
+      <option selected>類別</option>
+      <option value="house">家居物業</option>
+      <option value="transportation">交通出行</option>
+      <option value="entertainment">休閒娛樂</option>
+      <option value="food">餐飲食品</option>
+      <option value="other">其他</option>
+    </select>
+  </div>
+</div>
 
+<div class="container mt-3 mb-3">
+  <div class="row align-items-center">
+    <div class="col-3">
+      <h3>總金額：</h3>
+    </div>
+    <div class="col-9">
+      <h1 class="text-end text-danger">TESTING</h1>
+    </div>
+  </div>
+  
+  
+</div>
 
-<a href="./records/new" class="btn btn-success">新增支出</a>
+{{#each records}}
+<div class="bg-light container text-center mb-2 mt-2">
+  <div class="row align-items-center">
+    <div class="col-1 my-0">
+      {{this.category}}
+    </div>
+    <div class="col-7 my-0 text-start">
+      <h3>{{this.name}}</h3>
+      <small>{{this.date}}</small>
+    </div>
+    <div class="col-4 my-0">
+      <h2 class="d-flex align-items-center justify-content-end">{{this.amount}}
+        <a class="btn btn-success m-1" href="./records/{{ this._id }}/edit">修改</a>
+        <form action="./records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+          <button class="btn btn-danger m-1" type="submit" onclick="confirmBox()">刪除</button>
+        </form>
+      </h2>
+    </div>
+  </div>
+</div>
+{{/each}}
+
+<div class="text-center">
+  <a href="./records/new" class="btn btn-success">新增支出</a>
+</div>

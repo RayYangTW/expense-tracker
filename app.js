@@ -54,8 +54,8 @@ app.get('/records/new', (req, res) => {
 })
 
 app.post('/records', (req, res) => {
-  const { name } = req.body
-  Record.create({ name })
+  const { name, date, category, category2, amount } = req.body
+  Record.create({ name, date, category, amount })
     .then(() => res.redirect('/'))
     .catch(err => console.error(err))
 })
