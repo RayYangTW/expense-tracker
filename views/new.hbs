@@ -31,17 +31,15 @@
       </label>
       <div class="col-sm-10 mb-3">
           <select name="category" id="category" class="form-select">
-            <option>家居物業</option>
-            <option>交通出行</option>
-            <option>休閒娛樂</option>
-            <option>餐飲食品</option>
-            <option>其他</option>
+            <optgroup label="請選擇類別">
+            <option selected disabled hidden>請選擇類別</option>
+            <option value="house">家居物業</option>
+            <option value="transportation">交通出行</option>
+            <option value="entertainment">休閒娛樂</option>
+            <option value="food">餐飲食品</option>
+            <option value="other">其他</option>
           </select>
-          
-
       </div>
-
-
       <label for="amount" class="col-sm-2 col-form-label text-end">
         <span class="text-danger">
           *
