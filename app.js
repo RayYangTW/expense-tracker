@@ -8,8 +8,8 @@ if(process.env.NODE_ENV !== "production") {
   require("dotenv").config()
 }
 
-const Record = require("./models/record")
 const routes = require("./routes")
+const usePassport = require('./config/passport')
 
 require('./config/mongoose')
 
@@ -26,6 +26,7 @@ app.use(session({
 }))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+usePassport(app)
 app.use(routes)
 
 app.listen(PORT, () => {
