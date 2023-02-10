@@ -1,5 +1,7 @@
 <h2 class="m-3 text-center">請輸入你的支出</h2>
-
+<div class="container" style="max-width: 300px">
+  {{> message}}
+</div>
 <div class="container" style="max-width: 500px">
   <form action="/records" method="POST">
     <div class="row mb-3">
@@ -10,7 +12,7 @@
         名稱：
       </label>
       <div class="col-sm-9 mb-3">
-        <input type="text" id="name" name="name" class="form-control" required>
+        <input type="text" id="name" name="name" class="form-control" value="{{name}}"required>
       </div>
 
       <label for="date" class="col-sm-3 col-form-label text-end">
@@ -20,7 +22,7 @@
         日期：
       </label>
       <div class="col-sm-9 mb-3">
-        <input type="date" id="date" name="date" class="form-control" placeholder="MM/DD/YYYY" required>
+        <input type="date" id="date" name="date" class="form-control" placeholder="MM/DD/YYYY" value="{{date}}" required>
       </div>
 
       <label for="category" class="col-sm-3 col-form-label text-end">
@@ -30,7 +32,7 @@
         類別：
       </label>
       <div class="col-sm-9 mb-3">
-          <select name="category" id="category" class="form-select">
+          <select name="category" id="category" class="form-select" value="{{category}}">
             <optgroup label="請選擇類別">
             <option selected disabled hidden>請選擇類別</option>
             <option value="house">家居物業</option>
@@ -47,7 +49,7 @@
         金額：
       </label>
       <div class="col-sm-9 mb-3">
-        <input type="number" id="amount" name="amount" class="form-control" required>
+        <input type="number" id="amount" name="amount" class="form-control" value="{{amount}}" required>
       </div>
 
       <div class="text-center">
