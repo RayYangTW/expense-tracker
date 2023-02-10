@@ -4,10 +4,16 @@ const router = express.Router()
 const Record = require("../../models/record")
 
 router.get('/', (req, res) => {
-  Record.find()
+  let totalAmount = 0
+  const userId = req.user._id
+  Record.find({ userId })
   .lean()
   .sort({ date: 'desc' })
-  .then(records => res.render('index', {records}))
+  .then(records => {
+    records.forEach(item => {
+      totalAmount += item.amount
+    })
+    return res.render('index', {records, totalAmount: totalAmount})})
   .catch(err => console.error(err))
   
 })
