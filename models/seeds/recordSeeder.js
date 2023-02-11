@@ -32,12 +32,12 @@ db.once('open', () => {
           userId,
           name:`Record-${i}`,
           date: `2023-01-${31-i*2}`,
-          category:`house`,
+          category:"63e73f0bf6c8add2a3812abd",
           amount: Math.floor(Math.random()*3000)+1
         })))
     })
     .then(() => {
-      console.log("done!")
+      console.log("done! seed records created, seed user created.")
       process.exit()
     })
 })

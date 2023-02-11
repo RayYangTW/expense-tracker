@@ -1,4 +1,7 @@
 <h2 class="m-3 text-center">請修改你的支出</h2>
+<div class="container" style="max-width: 300px">
+  {{> message}}
+</div>
 
 <div class="container" style="max-width: 500px">
   <form action="/records/{{ record._id }}?_method=PUT" method="POST">
@@ -31,12 +34,14 @@
       </label>
       <div class="col-sm-9 mb-3">
         <select name="category" id="category" class="form-select" value="{{record.category}}">
-          <option selected disabled hidden>類別</option>
-          <option value="house">家居物業</option>
-          <option value="transportation">交通出行</option>
-          <option value="entertainment">休閒娛樂</option>
-          <option value="food">餐飲食品</option>
-          <option value="other">其他</option>
+          <optgroup label="請選擇類別">
+          <option selected disabled hidden>請選擇類別</option>
+          {{#each categoryData}}
+          <option value="{{this._id}}">{{this.name}}</option>
+          {{/each}}
+          {{#each category}}
+          <option value="{{this._id}}">{{this.name}}</option>
+          {{/each}}
         </select>
       </div>
       <label for="amount" class="col-sm-3 col-form-label text-end">

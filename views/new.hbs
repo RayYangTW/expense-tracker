@@ -35,11 +35,9 @@
           <select name="category" id="category" class="form-select" value="{{category}}">
             <optgroup label="請選擇類別">
             <option selected disabled hidden>請選擇類別</option>
-            <option value="house">家居物業</option>
-            <option value="transportation">交通出行</option>
-            <option value="entertainment">休閒娛樂</option>
-            <option value="food">餐飲食品</option>
-            <option value="other">其他</option>
+            {{#each categoryData}}
+            <option value="{{this._id}}">{{this.name}}</option>
+            {{/each}}
           </select>
       </div>
       <label for="amount" class="col-sm-3 col-form-label text-end">

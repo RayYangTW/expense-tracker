@@ -21,11 +21,7 @@
       <h1 class="text-end text-danger">{{totalAmount}}</h1>
     </div>
   </div>
-  
-  
 </div>
-
-
 
 <div class="col align-items-center mb-4">
   <div class="overflow-auto p-3 bg-dark rounded-3 mx-auto" style="max-width: 1000px; max-height: 500px;">
@@ -35,17 +31,19 @@
         <div class="col-2 my-0">
           {{this.category}}
         </div>
-        <div class="col-6 my-0 text-start">
+        <div class="col-3 my-0 text-start">
           <h3>{{this.name}}</h3>
           <small>{{this.date}}</small>
         </div>
-        <div class="col-4 my-0">
+        <div class="col-3 my-0">
           <h2 class="d-flex align-items-center justify-content-end">{{this.amount}}
-            <a class="btn btn-success m-1" href="./records/{{ this._id }}/edit">修改</a>
-            <form action="./records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-              <button class="btn btn-danger m-1" type="submit" onclick="confirmBox()">刪除</button>
-            </form>
           </h2>
+        </div>
+        <div class="col-4 my-0">
+          <a class="btn btn-success m-1" href="./records/{{ this._id }}/edit">修改</a>
+          <form action="./records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+            <button class="btn btn-danger m-1" type="submit" onclick="confirmBox()">刪除</button>
+          </form>
         </div>
       </div>
     </div>
