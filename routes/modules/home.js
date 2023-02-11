@@ -29,6 +29,7 @@ router.get('/', (req, res) => {
       Record.find({ userId })
         .lean()
         .sort({ date: 'desc' })
+        .populate("category")
         .then( records => {
           let totalAmount = 0
           records.forEach(item => totalAmount += item.amount)
