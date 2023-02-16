@@ -1,14 +1,14 @@
 
 <div class="container d-flex align-items-center justify-content-center mb-2 mt-3 w-50">
   <div class="col-sm-10 mb-3">
-    <select name="category" id="category" class="form-select">
-      <option selected>所有類別</option>
-      <option value="house">家居物業</option>
-      <option value="transportation">交通出行</option>
-      <option value="entertainment">休閒娛樂</option>
-      <option value="food">餐飲食品</option>
-      <option value="other">其他</option>
-    </select>
+    <form action="/search" method="GET">
+      <select name="category" id="category" class="form-select" aria-label="Default select example" onchange="this.form.submit()">
+        <option value="">請選擇類別</option>
+        {{#each categoryData}}
+        <option value="{{this._id}}" {{#if this._id}} selected {{/if}}>{{this.name}}</option>
+        {{/each}}
+      </select>
+    </form>
   </div>
 </div>
 
