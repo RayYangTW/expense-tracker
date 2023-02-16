@@ -22,6 +22,9 @@ router.post('/', (req, res) => {
   if( amount <= 0) {
     errors.push({ message: '金額必須為正數' })
   }
+  if( amount > 99999999) {
+    errors.push({ message: '金額過大，必須小於1億' })
+  }
   if(!category) {
     errors.push({ message: '請選擇類別' })
   }
@@ -91,6 +94,9 @@ router.put('/:id', (req, res) => {
   if(amount <= 0){
     errors.push({ message: '金額必須為正數' })
   }
+  if( amount > 99999999) {
+    errors.push({ message: '金額過大，必須小於1億' })
+  }
   if(!category) {
     errors.push({ message: '請選擇類別' })
   }
@@ -101,7 +107,8 @@ router.put('/:id', (req, res) => {
         Category.find()
           .lean()
           .sort({ _id: 'asc' })
-          .then(categoryData => res.render('edit', {errors, categoryData, record}))
+          .then(categoryData => 
+            res.render('edit', {errors, categoryData, record}))
       )
     
       
