@@ -69,7 +69,13 @@ router.get('/:id/edit', (req, res) => {
     .then(categoryData => {
       Record.findOne({ _id, userId })
         .lean()
-        .then( record => res.render('edit', {categoryData, record}))
+        .then( (record) => { 
+          categoryData.forEach((item) => {
+            if (item._id.toString() === record.category.toString()) {
+              item.selected = true
+            }
+          })
+          res.render('edit', {categoryData, record})})
         .catch(err => console.log(err))
     })
     .catch(err => console.log(err))

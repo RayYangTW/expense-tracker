@@ -36,7 +36,12 @@ router.get('/search', (req, res) => {
           .lean()
           .populate("category")
           .sort({ date: 'desc'})
-          .then( records => {
+          .then((records) => { 
+            categoryData.forEach((item) => {
+              if (item._id.toString() === categoryId) {
+                item.selected = true
+              }
+            })
             let totalAmount = 0
             records.forEach(item => totalAmount += item.amount)
             return res.render('index', {categoryData, records, totalAmount})
@@ -53,7 +58,12 @@ router.get('/search', (req, res) => {
         .lean()
         .sort({ date: 'desc' })
         .populate("category")
-        .then( records => {
+        .then((records) => { 
+            categoryData.forEach((item) => {
+              if (item._id.toString() === categoryId) {
+                item.selected = true
+              }
+            })
           let totalAmount = 0
           records.forEach(item => totalAmount += item.amount)
           return res.render('index', {categoryData, records, totalAmount})

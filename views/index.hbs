@@ -5,7 +5,7 @@
       <select name="category" id="category" class="form-select" aria-label="Default select example" onchange="this.form.submit()">
         <option value="">請選擇類別</option>
         {{#each categoryData}}
-        <option value="{{this._id}}" {{#if this._id}} selected {{/if}}>{{this.name}}</option>
+        <option value="{{this._id}}" {{#if this.selected}} selected {{/if}}>{{this.name}}</option>
         {{/each}}
       </select>
     </form>
