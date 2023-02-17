@@ -15,6 +15,7 @@ router.get('/new', (req, res) => {
 })
 
 //  =========  Create  =========  
+
 router.post('/', (req, res) => {
   const userId = req.user._id
   const { name, date, category, amount } = req.body
@@ -49,19 +50,6 @@ router.post('/', (req, res) => {
 })
 
 // =========  Update  =========  
-// router.get('/:id/edit', (req, res) => {
-//   const _id = req.params.id
-//   const userId = req.user._id
-//   Record.findOne({ _id, userId })
-//     .lean()
-//     .then(record => {
-//       console.log(record)
-//       const { category } = record
-//       console.log(category)
-//       return res.render('edit', {record})})
-//     .catch(err => console.error(err))
-// })
-
 
 router.get('/:id/edit', (req, res) => {
   const _id = req.params.id
@@ -87,7 +75,7 @@ router.get('/:id/edit', (req, res) => {
 
 router.put('/:id', (req, res) => {
   const userId = req.user._id
-  const id = req.params.id
+  const _id = req.params.id
   const { name, date, category, amount } = req.body
   const errors = []
   
@@ -95,87 +83,39 @@ router.put('/:id', (req, res) => {
     errors.push({ message: '金額必須為正數' })
   }
   if( amount > 99999999) {
-    errors.push({ message: '金額過大，必須小於1億' })
+    errors.push({ message: '金額太大啦！必須小於1億' })
   }
   if(!category) {
     errors.push({ message: '請選擇類別' })
   }
   if(errors.length) {
-    Record.findOne({ id, userId })
-      .lean()
-      .then(record => 
-        Category.find()
-          .lean()
-          .sort({ _id: 'asc' })
-          .then(categoryData => 
-            res.render('edit', {errors, categoryData, record}))
-      )
+    Category.find()
+    .lean()
+    .sort({ _id: 'asc' })
+    .then(categoryData => {
+      Record.findOne({ _id, userId })
+        .lean()
+        .then( (record) => { 
+          categoryData.forEach((item) => {
+            if (item._id.toString() === record.category.toString()) {
+              item.selected = true
+            }
+          })
+          res.render('edit', {errors, categoryData, record})})
+        .catch(err => console.log(err))
+    })
+    .catch(err => console.log(err))
     
       
   } else {
-    return Record.findByIdAndUpdate(id, req.body)
+    return Record.findByIdAndUpdate(_id, req.body)
     .then(() => res.redirect('/'))
     .catch(err => console.error(err))
   }  
 })
 
-
-
-
-//   if(errors.length){
-//     Category.find()
-//       .lean()
-//       .sort({ _id: 'desc'})
-//       .then( categoryData => 
-//         res.render('edit', {
-//           errors,
-//           id,
-//           name,
-//           date,
-//           category,
-//           amount,
-//           categoryData
-//     }))
-//   } else {
-//     Record.findByIdAndUpdate(id, req.body)
-//     .then(() => res.redirect('/'))
-//     .catch(err => console.error(err))
-//   }  
-// })
-
-// router.put('/:id', (req, res) => {
-//   const _id = req.params.id
-//   const userId = req.user._id
-//   const { name, date, category, amount } = req.body
-//   const errors = []
-//   if(amount <= 0){
-//         errors.push({ message: '金額必須為正數' })
-//       }
-//   if(!category) {
-//     errors.push({ message: '請選擇類別' })
-//   }
-//   if(errors.length){
-//     return res.render('new', {
-//       errors,
-//       name,
-//       date,
-//       category,
-//       amount
-//     })
-//   }
-//   Record.findOne({ _id, userId })
-//     .then(record => {
-//       record.name = name
-//       record.dare = date
-//       record.category = category
-//       record.amount = amount
-//       return record.save()
-//     })
-//     .then(() => res.redirect('/'))
-//     .catch(err => console.error(err))
-// })
-
 //  =========  Delete  =========  
+
 router.delete('/:id', (req, res) =>{
   const _id = req.params.id
   const userId = req.user._id
