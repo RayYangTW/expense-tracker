@@ -10,9 +10,9 @@ const db = require("../../config/mongoose")
 const category = require('../category')
 
 const SEED_USER = {
-  email: 'zxc@zxc.zxc',
-  name: 'example',
-  password: 'zxc'
+  name: "User",
+  email: "user@example.com",
+  password: "12345678"
 }
 
 db.once('open', () => {
@@ -37,7 +37,7 @@ db.once('open', () => {
             Record.create({
               userId,
               name:`Record-${i}`,
-              date: `2023-${Math.floor(Math.random()*12)+1}-${31-i*2}`,
+              date: `2023-02-${31-i*2}`,
               category: categoryData[i]._id,
               amount: Math.floor(Math.random()*3000)+1
             })))
