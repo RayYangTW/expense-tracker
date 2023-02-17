@@ -19,9 +19,9 @@
 
 請進入[此網站](https://murmuring-lowlands-41352.herokuapp.com/)並使用**試用帳號**或**自行註冊**使用：
 
-| email             | password |
-| ----------------- | -------- |
-| user1@example.com | 12345678 |
+| email            | password |
+| ---------------- | -------- |
+| user@example.com | 12345678 |
 
 ## 開始使用
 
