@@ -37,7 +37,7 @@ db.once('open', () => {
             Record.create({
               userId,
               name:`Record-${i}`,
-              date: `2023-01-${31-i*2}`,
+              date: `2023-${Math.floor(Math.random()*12)+1}-${31-i*2}`,
               category: categoryData[i]._id,
               amount: Math.floor(Math.random()*3000)+1
             })))
